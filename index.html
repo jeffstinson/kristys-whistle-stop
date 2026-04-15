@@ -6,7 +6,7 @@
   <title>Kristy's Whistle Stop | Enola, PA</title>
   <meta
     name="description"
-    content="Kristy's Whistle Stop in Enola, PA — roadside ice cream, grille favorites, rotating flavors, sundaes, and hometown charm."
+    content="Kristy's Whistle Stop in Enola, PA — roadside ice cream, soft serve, sundaes, grille favorites, and hometown charm."
   />
   <style>
     :root {
@@ -17,13 +17,10 @@
       --deep-cherry: #8f1c20;
       --mustard: #f0c13d;
       --teal: #1c7b79;
-      --sky: #d7eef2;
       --white: #ffffff;
       --line: rgba(47, 43, 40, 0.12);
       --shadow: 0 14px 36px rgba(47, 43, 40, 0.14);
       --shadow-soft: 0 10px 24px rgba(47, 43, 40, 0.08);
-      --radius: 22px;
-      --max: 1180px;
       --stripe: linear-gradient(
         90deg,
         var(--cherry) 0 12%,
@@ -35,6 +32,7 @@
         var(--cherry) 72% 84%,
         var(--ivory) 84% 100%
       );
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
@@ -85,7 +83,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255, 250, 241, 0.92);
+      background: rgba(255, 250, 241, 0.93);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
@@ -150,8 +148,7 @@
 
     .hero-copy {
       padding: 1.15rem;
-      background:
-        linear-gradient(135deg, rgba(255, 250, 241, 0.98), rgba(248, 243, 232, 0.96));
+      background: linear-gradient(135deg, rgba(255, 250, 241, 0.98), rgba(248, 243, 232, 0.96));
       position: relative;
     }
 
@@ -258,9 +255,9 @@
 
     .hero-photo {
       position: relative;
-      min-height: 320px;
+      min-height: 340px;
       background:
-        linear-gradient(rgba(20, 15, 12, 0.18), rgba(20, 15, 12, 0.1)),
+        linear-gradient(rgba(20, 15, 12, 0.2), rgba(20, 15, 12, 0.12)),
         url('https://res.cloudinary.com/dkzuagusr/image/upload/v1776271315/669750651_1257008509874814_6905411848901927413_n_tgx73z.jpg') center/cover;
     }
 
@@ -273,7 +270,7 @@
       color: var(--deep-cherry);
       border-radius: 20px;
       padding: 0.9rem 1rem;
-      max-width: 220px;
+      max-width: 230px;
       box-shadow: var(--shadow);
     }
 
@@ -310,20 +307,17 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .roadside-panel {
-      overflow: hidden;
-    }
+    .roadside-panel { overflow: hidden; }
 
     .panel-stripe {
       height: 10px;
       background: var(--stripe);
     }
 
-    .panel-body {
-      padding: 1rem;
-    }
+    .panel-body { padding: 1rem; }
 
-    .menu-links {
+    .menu-links,
+    .feature-grid {
       display: grid;
       gap: 0.8rem;
     }
@@ -344,8 +338,6 @@
     }
 
     .data-grid,
-    .feature-grid,
-    .visit-grid,
     .hours-grid {
       display: grid;
       gap: 0.9rem;
@@ -414,30 +406,7 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .menu-photo-text {
-      min-width: 0;
-    }
-
-    @media (max-width: 420px) {
-      .menu-photo-card {
-        grid-template-columns: 72px 1fr;
-      }
-
-      .menu-photo {
-        width: 72px;
-        height: 72px;
-      }
-    }
-
-    .flavor-item,
-    .soft-item,
-    .sundae-item,
-    .hours-item {
-      background: var(--ivory);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 0.78rem 0.85rem;
-    }
+    .menu-photo-text { min-width: 0; }
 
     .flavor-name,
     .soft-name,
@@ -469,16 +438,39 @@
       color: #5f554e;
     }
 
-    .hours-item strong {
-      color: var(--deep-cherry);
+    .hours-item strong { color: var(--deep-cherry); }
+
+    .hours-aside {
+      display: grid;
+      gap: 0.9rem;
+      align-content: start;
     }
 
-    .feature-grid .card,
-    .visit-grid .card {
-      padding: 1rem;
+    .hours-photo-card {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
     }
 
-    .card p { color: #655b53; margin-bottom: 0; }
+    .hours-photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .hours-photo-caption {
+      padding: 0.85rem 0.95rem;
+      color: #655b53;
+      font-size: 0.9rem;
+      background: linear-gradient(180deg, #fffefb, #f8f1e3);
+    }
+
+    .details-card p,
+    .card p { color: #655b53; margin-bottom: 0.6rem; }
+    .details-card p:last-child,
+    .card p:last-child { margin-bottom: 0; }
 
     .status {
       margin-top: 0.8rem;
@@ -504,9 +496,7 @@
       background: rgba(255, 250, 241, 0.6);
     }
 
-    .footer {
-      padding: 2rem 0 3rem;
-    }
+    .footer { padding: 2rem 0 3rem; }
 
     .footer-box {
       background: rgba(255, 255, 255, 0.72);
@@ -526,8 +516,7 @@
         align-items: start;
       }
       .menu-links,
-      .feature-grid,
-      .visit-grid {
+      .feature-grid {
         grid-template-columns: repeat(3, 1fr);
       }
       .data-grid {
@@ -535,7 +524,8 @@
         align-items: start;
       }
       .hours-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: start;
       }
       .panel-body,
       .card,
@@ -543,6 +533,17 @@
       .sundae-card,
       .hour-card,
       .info-card { padding: 1.2rem; }
+    }
+
+    @media (max-width: 420px) {
+      .menu-photo-card {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .menu-photo {
+        width: 72px;
+        height: 72px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -579,13 +580,13 @@
             <span class="badge">Vintage roadside summer vibe</span>
             <h1>Pull in for cones, sundaes, fries, and a hometown classic.</h1>
             <p class="lead">
-              This refreshed design leans into the real look of the shop — bright roadside signage,
-              old-school drive-in energy, and a simple mobile-first layout powered by one Google Sheet.
+              Kristy's Whistle Stop brings together classic roadside charm, rotating ice cream flavors,
+              soft serve favorites, signature sundaes, and grille food worth the stop.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href="#hard-scoop">See Flavors</a>
-              <a class="button button-secondary" href="#sundaes">View Sundaes</a>
               <a class="button button-secondary" href="#grille-menu">Grille Menu</a>
+              <a class="button button-secondary" href="#hours">Today's Hours</a>
             </div>
             <div class="hero-quick">
               <div class="quick-pill">Hard scoop updates</div>
@@ -593,10 +594,10 @@
               <div class="quick-pill">Grille + hours from sheet</div>
             </div>
           </div>
-          <div class="hero-photo" role="img" aria-label="Kristy's Whistle Stop storefront with classic cars and vintage roadside sign">
+          <div class="hero-photo" role="img" aria-label="Kristy's Whistle Stop storefront">
             <div class="hero-sign">
-              <small>Styled from the real storefront</small>
-              Bright signs, retro colors, and a classic drive-in feel built right into the page.
+              <small>Now powered by Google Sheets</small>
+              Update flavors, sundaes, grille items, and hours from one simple spreadsheet.
             </div>
           </div>
         </div>
@@ -608,7 +609,7 @@
         <div class="section-head">
           <h2>Website control panel flow</h2>
           <p>
-            One Google Sheet can now drive the hard scoop list, soft serve, sundaes, grille menu, and shop hours.
+            One Google Sheet drives the hard scoop list, soft serve, sundaes, grille menu, and shop hours.
             Update the sheet from a phone and the page updates itself.
           </p>
         </div>
@@ -622,8 +623,8 @@
             Show current soft serve flavors, twists, and seasonal options.
           </div>
           <div class="menu-link">
-            <strong>Sundaes + Hours tabs</strong>
-            Feature signature creations and keep the current opening hours accurate.
+            <strong>Sundaes, grille + hours</strong>
+            Feature specialties, hot food, and keep the schedule accurate in one place.
           </div>
         </div>
       </div>
@@ -647,7 +648,7 @@
             <div class="info-card">
               <h3>Spreadsheet setup</h3>
               <p class="muted">
-                This section is wired to your spreadsheet ID already. You only need to publish the sheet so the website can read it publicly.
+                This version pulls directly from the published Google Sheet using the real sheet names, so you do not need to mess with tab gid values.
               </p>
               <p class="muted">
                 Suggested columns: <strong>Flavor Name</strong>, <strong>Available</strong>, <strong>Notes</strong>, and optionally <strong>Photo URL</strong> for image cards.
@@ -698,7 +699,7 @@
     <section id="grille-menu">
       <div class="container">
         <div class="section-head">
-          <h2>Grille Menu</h2>
+          <h2>Fresh Off The Grille</h2>
           <p>Hot food and grille favorites load from the spreadsheet too, with support for categories like Burgers, Hot Dogs, Sandwiches, Sides, and Roadside Favorites.</p>
         </div>
         <div class="roadside-panel">
@@ -717,7 +718,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Hours</h2>
-          <p>Shop hours pulled from the spreadsheet so schedule changes only need one quick edit.</p>
+          <p>Shop hours pull from the spreadsheet so schedule changes only need one quick edit.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -727,13 +728,23 @@
               <div id="hoursList" class="hours-list" aria-live="polite">
                 <div class="empty-note">Loading shop hours…</div>
               </div>
+              <div class="status" id="hoursStatus"><span class="dot"></span>Ready to load hours</div>
+
+              <div class="info-card details-card" style="margin-top: 1rem;">
+                <h3>Storefront details</h3>
+                <p><strong>Phone:</strong> <a href="tel:+17179093881">(717) 909-3881</a></p>
+                <p><strong>Address:</strong> 600 S Enola Rd, Enola, PA 17025</p>
+                <p><strong>Directions:</strong> <a href="https://maps.google.com/?q=600+S+Enola+Rd,+Enola,+PA+17025" target="_blank" rel="noopener">Open in Maps</a></p>
+              </div>
             </div>
-            <div class="info-card">
-              <h3>Storefront details</h3>
-              <p class="muted">Replace these placeholders with the live phone number, address, Facebook link, and directions link.</p>
-              <p><strong>Phone:</strong> <a href="tel:+17175550123">(717) 555-0123</a></p>
-              <p><strong>Address:</strong> 123 Main Street, Enola, PA 17025</p>
-              <p><strong>Directions:</strong> <a href="https://maps.google.com" target="_blank" rel="noopener">Open in Maps</a></p>
+
+            <div class="hours-aside">
+              <div class="hours-photo-card">
+                <img src="https://res.cloudinary.com/dkzuagusr/image/upload/v1776271274/239169061_285262436740949_1011575798584043334_n_xmwhlk.jpg" alt="Kristy's Whistle Stop storefront with classic cars" loading="lazy" />
+                <div class="hours-photo-caption">
+                  A little extra roadside charm next to the hours section, pulled from the real storefront vibe.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -744,20 +755,20 @@
       <div class="container">
         <div class="section-head">
           <h2>Why the new vibe works</h2>
-          <p>The styling now pulls from the real shop photo: roadside sign energy, cherry red, mustard yellow, cream, teal, and classic drive-in nostalgia.</p>
+          <p>The styling pulls from the real shop photos: roadside sign energy, cherry red, mustard yellow, cream, teal, and classic drive-in nostalgia.</p>
         </div>
         <div class="feature-grid">
-          <article class="card">
+          <article class="card" style="padding:1rem;">
             <h3>Looks like the real place</h3>
             <p>Less generic cafe template, more local roadside stand with old-school summer-night personality.</p>
           </article>
-          <article class="card">
+          <article class="card" style="padding:1rem;">
             <h3>Built for quick mobile checks</h3>
-            <p>Customers can jump straight to flavors, sundaes, and hours without hunting around.</p>
+            <p>Customers can jump straight to flavors, sundaes, grille food, and hours without hunting around.</p>
           </article>
-          <article class="card">
+          <article class="card" style="padding:1rem;">
             <h3>Easy for the owner to run</h3>
-            <p>One sheet controls the important stuff, which keeps daily updates simple and low stress.</p>
+            <p>One published sheet controls the important stuff, which keeps daily updates simple and low stress.</p>
           </article>
         </div>
       </div>
@@ -776,20 +787,6 @@
   <script>
     const SHEET_ID = '1JqbEhfulM-NC4GV1asnr6G_WVtadwjfMII-S3cFa8jU';
 
-    /*
-      IMPORTANT:
-      This code uses the public OpenSheet-style JSON format.
-      The Google Sheet must be shared publicly or published to the web.
-
-      Recommended tab names in the spreadsheet:
-      - Hard Scoop
-      - Soft Serve
-      - Sundaes
-      - Hours
-
-      If your real tab names differ, update TAB_NAMES below.
-    */
-
     const TAB_NAMES = {
       hard: 'HARD SCOOP ICE CREAM',
       soft: 'SOFT SERVE',
@@ -798,25 +795,29 @@
       hours: 'CURRENT HOURS'
     };
 
-    const ENDPOINT = (tabName) => `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(tabName)}`;
+    const GVIZ_ENDPOINT = (sheetName) =>
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&tqx=out:json`;
 
     const fallbackData = {
       hard: [
-        { name: 'Mint Chip', notes: 'Classic favorite', available: true },
-        { name: 'Blueberry Swirl', notes: 'Summer favorite', available: true },
-        { name: 'Turtle Pie', notes: 'Rich and indulgent', available: true }
+        { name: 'Mint Chip', notes: 'Classic favorite', photo: '', available: true },
+        { name: 'Blueberry Swirl', notes: 'Summer favorite', photo: '', available: true },
+        { name: 'Turtle Pie', notes: 'Rich and indulgent', photo: '', available: true }
       ],
       soft: [
-        { name: 'Vanilla', notes: 'Classic soft serve', available: true },
-        { name: 'Chocolate', notes: 'Always a crowd favorite', available: true },
-        { name: 'Twist', notes: 'Best of both', available: true }
+        { name: 'Vanilla', notes: 'Classic soft serve', photo: '', available: true },
+        { name: 'Chocolate', notes: 'Always a crowd favorite', photo: '', available: true },
+        { name: 'Twist', notes: 'Best of both', photo: '', available: true }
       ],
-      sundaes: [$1],
+      sundaes: [
+        { name: 'Banana Split', description: 'Classic banana split with toppings', price: '$8.99', photo: '', available: true },
+        { name: 'Train Wreck Sundae', description: 'A loaded house favorite', price: '$9.99', photo: '', available: true }
+      ],
       grille: [
-        { category: 'Roadside Favorites', name: 'Fresh Cut Fries', description: 'Crispy roadside favorite', price: '$3.99', featured: true, available: true },
-        { category: 'Burgers', name: 'Cheeseburger', description: 'Classic grille favorite', price: '$6.99', featured: true, available: true },
-        { category: 'Sandwiches', name: 'Pork BBQ', description: 'One of the stand favorites', price: '$7.99', featured: true, available: true },
-        { category: 'Hot Dogs', name: 'Foot Long Hot Dog', description: 'Classic roadside dog', price: '$5.99', featured: false, available: true }
+        { category: 'Roadside Favorites', name: 'Fresh Cut Fries', description: 'Crispy roadside favorite', price: '$3.99', photo: '', featured: true, available: true },
+        { category: 'Burgers', name: 'Cheeseburger', description: 'Classic grille favorite', price: '$8.99', photo: '', featured: true, available: true },
+        { category: 'Sandwiches', name: 'Pork BBQ', description: 'One of the stand favorites', price: '$7.99', photo: '', featured: true, available: true },
+        { category: 'Dogs', name: 'Foot Long Hot Dog', description: 'Classic roadside dog', price: '$5.99', photo: '', featured: false, available: true }
       ],
       hours: [
         { day: 'Monday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
@@ -829,6 +830,38 @@
       ]
     };
 
+    function stripGvizWrapper(text) {
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if (start === -1 || end === -1) throw new Error('Invalid GViz response');
+      return text.slice(start, end + 1);
+    }
+
+    function cellValue(cell) {
+      if (!cell) return '';
+      if (cell.f !== undefined && cell.f !== null && cell.f !== '') return String(cell.f).trim();
+      if (cell.v !== undefined && cell.v !== null) return String(cell.v).trim();
+      return '';
+    }
+
+    async function fetchSheetByName(sheetName) {
+      const response = await fetch(GVIZ_ENDPOINT(sheetName), { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Failed to load ${sheetName}`);
+
+      const text = await response.text();
+      const json = JSON.parse(stripGvizWrapper(text));
+      const cols = json.table.cols.map((col, index) => (col.label || `Column ${index + 1}`).trim());
+      const rows = json.table.rows || [];
+
+      return rows.map((row) => {
+        const obj = {};
+        cols.forEach((colName, index) => {
+          obj[colName] = cellValue(row.c[index]);
+        });
+        return obj;
+      });
+    }
+
     function normBool(value, defaultValue = true) {
       if (value === undefined || value === null || value === '') return defaultValue;
       const v = String(value).trim().toLowerCase();
@@ -837,9 +870,24 @@
 
     function getValue(row, keys, fallback = '') {
       for (const key of keys) {
-        if (row[key] !== undefined && row[key] !== null && row[key] !== '') return String(row[key]).trim();
+        if (row[key] !== undefined && row[key] !== null && row[key] !== '') {
+          return String(row[key]).trim();
+        }
       }
       return fallback;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value);
     }
 
     function renderSimpleList(containerId, items, formatter, emptyMessage) {
@@ -851,18 +899,9 @@
       el.innerHTML = items.map(formatter).join('');
     }
 
-    function setStatus(id, text, live = true) {
+    function setStatus(id, text) {
       const el = document.getElementById(id);
-      el.innerHTML = `<span class="dot"></span>${text}`;
-      if (!live) {
-        el.style.opacity = '0.9';
-      }
-    }
-
-    async function fetchTab(tabName) {
-      const response = await fetch(ENDPOINT(tabName), { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Failed to load ${tabName}`);
-      return response.json();
+      if (el) el.innerHTML = `<span class="dot"></span>${text}`;
     }
 
     function normalizeHard(rows) {
@@ -944,7 +983,7 @@
         `,
         'No hard scoop flavors posted yet.'
       );
-      setStatus('hardStatus', live ? 'Live hard scoop flavors loaded from the sheet' : 'Showing sample hard scoop flavors until the tab is reachable', live);
+      setStatus('hardStatus', live ? 'Live hard scoop flavors loaded from the sheet' : 'Showing sample hard scoop flavors until the sheet is reachable');
     }
 
     function renderSoft(items, live) {
@@ -967,7 +1006,7 @@
         `,
         'No soft serve flavors posted yet.'
       );
-      setStatus('softStatus', live ? 'Live soft serve loaded from the sheet' : 'Showing sample soft serve until the tab is reachable', live);
+      setStatus('softStatus', live ? 'Live soft serve loaded from the sheet' : 'Showing sample soft serve until the sheet is reachable');
     }
 
     function renderSundaes(items, live) {
@@ -990,7 +1029,7 @@
         `,
         'No sundaes posted yet.'
       );
-      setStatus('sundaeStatus', live ? 'Live sundae menu loaded from the sheet' : 'Showing sample sundae items until the tab is reachable', live);
+      setStatus('sundaeStatus', live ? 'Live sundae menu loaded from the sheet' : 'Showing sample sundae items until the sheet is reachable');
     }
 
     function renderGrille(items, live) {
@@ -998,7 +1037,7 @@
 
       if (!items.length) {
         container.innerHTML = '<div class="empty-note">No grille items posted yet.</div>';
-        setStatus('grilleStatus', live ? 'No grille items found in the sheet' : 'Showing sample grille items until the tab is reachable', live);
+        setStatus('grilleStatus', live ? 'No grille items found in the sheet' : 'Showing sample grille items until the sheet is reachable');
         return;
       }
 
@@ -1031,7 +1070,7 @@
         </div>
       `).join('');
 
-      setStatus('grilleStatus', live ? 'Live grille menu loaded from the sheet' : 'Showing sample grille items until the tab is reachable', live);
+      setStatus('grilleStatus', live ? 'Live grille menu loaded from the sheet' : 'Showing sample grille items until the sheet is reachable');
     }
 
     function renderHours(items, live) {
@@ -1046,44 +1085,30 @@
         `,
         'No hours posted yet.'
       );
+      setStatus('hoursStatus', live ? 'Live hours loaded from the sheet' : 'Showing sample hours until the sheet is reachable');
     }
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/\"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function escapeAttribute(value) {
-      return escapeHtml(value);
+    async function fetchTabSafe(sheetName) {
+      try {
+        return await fetchSheetByName(sheetName);
+      } catch (error) {
+        console.error(`Sheet load failed for ${sheetName}:`, error);
+        return null;
+      }
     }
 
     async function loadAllData() {
-      try {
-        const [hardRows, softRows, sundaeRows, grilleRows, hourRows] = await Promise.all([
-          fetchTab(TAB_NAMES.hard),
-          fetchTab(TAB_NAMES.soft),
-          fetchTab(TAB_NAMES.sundaes),
-          fetchTab(TAB_NAMES.grille),
-          fetchTab(TAB_NAMES.hours)
-        ]);
+      const hardRows = await fetchTabSafe(TAB_NAMES.hard);
+      const softRows = await fetchTabSafe(TAB_NAMES.soft);
+      const sundaeRows = await fetchTabSafe(TAB_NAMES.sundaes);
+      const grilleRows = await fetchTabSafe(TAB_NAMES.grille);
+      const hourRows = await fetchTabSafe(TAB_NAMES.hours);
 
-        renderHard(normalizeHard(hardRows), true);
-        renderSoft(normalizeSoft(softRows), true);
-        renderSundaes(normalizeSundaes(sundaeRows), true);
-        renderGrille(normalizeGrille(grilleRows), true);
-        renderHours(normalizeHours(hourRows), true);
-      } catch (error) {
-        console.error('Sheet loading failed:', error);
-        renderHard(fallbackData.hard, false);
-        renderSoft(fallbackData.soft, false);
-        renderSundaes(fallbackData.sundaes, false);
-        renderGrille(fallbackData.grille, false);
-        renderHours(fallbackData.hours, false);
-      }
+      renderHard(hardRows ? normalizeHard(hardRows) : fallbackData.hard, !!hardRows);
+      renderSoft(softRows ? normalizeSoft(softRows) : fallbackData.soft, !!softRows);
+      renderSundaes(sundaeRows ? normalizeSundaes(sundaeRows) : fallbackData.sundaes, !!sundaeRows);
+      renderGrille(grilleRows ? normalizeGrille(grilleRows) : fallbackData.grille, !!grilleRows);
+      renderHours(hourRows ? normalizeHours(hourRows) : fallbackData.hours, !!hourRows);
     }
 
     loadAllData();
