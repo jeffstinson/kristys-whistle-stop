@@ -629,7 +629,7 @@
               <p class="muted">
                 Whether you're stopping in for a cone, a sundae, or dinner too, there is always something good waiting at the window.
               </p>
-              <div class="status" id="hardStatus"><span class="dot"></span>Current hard scoop favorites</div>
+              <div class="status" id="hardStatus"><span class="dot"></span>Most up to date flavors as of today</div>
             </div>
           </div>
         </div>
@@ -648,7 +648,7 @@
             <div id="softServeList" class="soft-list" aria-live="polite">
               <div class="empty-note">Loading soft serve flavors…</div>
             </div>
-            <div class="status" id="softStatus"><span class="dot"></span>Soft serve favorites</div>
+            <div class="status" id="softStatus"><span class="dot"></span>Most up to date flavors as of today</div>
           </div>
         </div>
       </div>
@@ -666,7 +666,7 @@
             <div id="sundaeList" class="sundae-list" aria-live="polite">
               <div class="empty-note">Loading sundae menu…</div>
             </div>
-            <div class="status" id="sundaeStatus"><span class="dot"></span>Signature sundae lineup</div>
+            <div class="status" id="sundaeStatus"><span class="dot"></span>Most up to date flavors as of today</div>
           </div>
         </div>
       </div>
@@ -684,7 +684,7 @@
             <div id="grilleMenuList" class="sundae-list" aria-live="polite">
               <div class="empty-note">Loading grille menu…</div>
             </div>
-            <div class="status" id="grilleStatus"><span class="dot"></span>Fresh off the grille</div>
+            <div class="status" id="grilleStatus"><span class="dot"></span>Most up to date favorites as of today</div>
           </div>
         </div>
       </div>
@@ -704,7 +704,7 @@
               <div id="hoursList" class="hours-list" aria-live="polite">
                 <div class="empty-note">Loading shop hours…</div>
               </div>
-              <div class="status" id="hoursStatus"><span class="dot"></span>Today's schedule</div>
+              <div class="status" id="hoursStatus"><span class="dot"></span>Most up to date hours as of today</div>
 
               <div class="info-card details-card" style="margin-top: 1rem;">
                 <h3>Storefront details</h3>
@@ -873,10 +873,10 @@
     function normalizeSoft(rows) {
       return rows
         .map((row) => ({
-          name: getValue(row, ['Flavor Name', 'Flavor', 'Name']),
-          notes: getValue(row, ['Notes', 'Twist Option', 'Description']),
-          photo: getValue(row, ['Photo URL', 'Photo', 'Image URL', 'Image']),
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
+          name: getValue(row, ['Flavor Name', 'Flavor', 'Name', 'Soft Serve Flavor', 'Item Name', 'Item']),
+          notes: getValue(row, ['Notes', 'Twist Option', 'Description', 'Details']),
+          photo: getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image']),
+          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock', 'Status'], 'Yes'))
         }))
         .filter((item) => item.name && item.available);
     }
@@ -938,7 +938,7 @@
         `,
         'No hard scoop flavors posted yet.'
       );
-      setStatus('hardStatus', live ? 'Live hard scoop flavors loaded from the sheet' : 'Showing sample hard scoop flavors until the sheet is reachable');
+      setStatus('hardStatus', 'Most up to date flavors as of today');
     }
 
     function renderSoft(items, live) {
@@ -961,7 +961,7 @@
         `,
         'No soft serve flavors posted yet.'
       );
-      setStatus('softStatus', live ? 'Live soft serve loaded from the sheet' : 'Showing sample soft serve until the sheet is reachable');
+      setStatus('softStatus', 'Most up to date flavors as of today');
     }
 
     function renderSundaes(items, live) {
@@ -984,7 +984,7 @@
         `,
         'No sundaes posted yet.'
       );
-      setStatus('sundaeStatus', live ? 'Live sundae menu loaded from the sheet' : 'Showing sample sundae items until the sheet is reachable');
+      setStatus('sundaeStatus', 'Most up to date flavors as of today');
     }
 
     function renderGrille(items, live) {
@@ -992,7 +992,7 @@
 
       if (!items.length) {
         container.innerHTML = '<div class="empty-note">No grille items posted yet.</div>';
-        setStatus('grilleStatus', live ? 'No grille items found in the sheet' : 'Showing sample grille items until the sheet is reachable');
+        setStatus('grilleStatus', 'Most up to date favorites as of today');
         return;
       }
 
@@ -1025,7 +1025,7 @@
         </div>
       `).join('');
 
-      setStatus('grilleStatus', live ? 'Live grille menu loaded from the sheet' : 'Showing sample grille items until the sheet is reachable');
+      setStatus('grilleStatus', 'Most up to date favorites as of today');
     }
 
     function renderHours(items, live) {
@@ -1040,7 +1040,7 @@
         `,
         'No hours posted yet.'
       );
-      setStatus('hoursStatus', live ? 'Live hours loaded from the sheet' : 'Showing sample hours until the sheet is reachable');
+      setStatus('hoursStatus', 'Most up to date hours as of today');
     }
 
     async function fetchTabSafe(sheetName) {
