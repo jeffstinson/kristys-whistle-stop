@@ -740,333 +740,414 @@
   </footer>
 
   <script>
-    const SHEET_ID = '1JqbEhfulM-NC4GV1asnr6G_WVtadwjfMII-S3cFa8jU';
+  const SHEET_ID = '1JqbEhfulM-NC4GV1asnr6G_WVtadwjfMII-S3cFa8jU';
 
-    const TAB_NAMES = {
-      hard: 'HARD SCOOP ICE CREAM',
-      soft: 'SOFT SERVE',
-      sundaes: 'SUNDAES',
-      grille: 'GRILLE MENU',
-      hours: 'CURRENT HOURS'
-    };
+  const TAB_NAMES = {
+    hard: 'HARD SCOOP ICE CREAM',
+    soft: 'SOFT SERVE',
+    sundaes: 'SUNDAES',
+    grille: 'GRILLE MENU',
+    hours: 'CURRENT HOURS'
+  };
 
-    const GVIZ_ENDPOINT = (sheetName) =>
-      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&tqx=out:json`;
+  const GVIZ_ENDPOINT = (sheetName) =>
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&tqx=out:json`;
 
-    const fallbackData = {
-      hard: [
-        { name: 'Mint Chip', notes: 'Classic favorite', photo: '', available: true },
-        { name: 'Blueberry Swirl', notes: 'Summer favorite', photo: '', available: true },
-        { name: 'Turtle Pie', notes: 'Rich and indulgent', photo: '', available: true }
-      ],
-      soft: [
-        { name: 'Vanilla', notes: 'Classic soft serve', photo: '', available: true },
-        { name: 'Chocolate', notes: 'Always a crowd favorite', photo: '', available: true },
-        { name: 'Twist', notes: 'Best of both', photo: '', available: true }
-      ],
-      sundaes: [
-        { name: 'Banana Split', description: 'Classic banana split with toppings', price: '$8.99', photo: '', available: true },
-        { name: 'Train Wreck Sundae', description: 'A loaded house favorite', price: '$9.99', photo: '', available: true }
-      ],
-      grille: [
-        { category: 'Roadside Favorites', name: 'Fresh Cut Fries', description: 'Crispy roadside favorite', price: '$3.99', photo: '', featured: true, available: true },
-        { category: 'Burgers', name: 'Cheeseburger', description: 'Classic grille favorite', price: '$8.99', photo: '', featured: true, available: true },
-        { category: 'Sandwiches', name: 'Pork BBQ', description: 'One of the stand favorites', price: '$7.99', photo: '', featured: true, available: true },
-        { category: 'Dogs', name: 'Foot Long Hot Dog', description: 'Classic roadside dog', price: '$5.99', photo: '', featured: false, available: true }
-      ],
-      hours: [
-        { day: 'Monday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
-        { day: 'Tuesday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
-        { day: 'Wednesday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
-        { day: 'Thursday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
-        { day: 'Friday', open: '11:00 AM', close: '9:00 PM', status: 'Open' },
-        { day: 'Saturday', open: '11:00 AM', close: '9:00 PM', status: 'Open' },
-        { day: 'Sunday', open: '12:00 PM', close: '8:00 PM', status: 'Open' }
-      ]
-    };
+  const fallbackData = {
+    hard: [
+      { name: 'Mint Chip', notes: 'Classic favorite', photo: '', available: true },
+      { name: 'Blueberry Swirl', notes: 'Summer favorite', photo: '', available: true },
+      { name: 'Turtle Pie', notes: 'Rich and indulgent', photo: '', available: true }
+    ],
+    soft: [
+      { name: 'Vanilla', notes: 'Classic soft serve', photo: '', available: true },
+      { name: 'Chocolate', notes: 'Always a crowd favorite', photo: '', available: true },
+      { name: 'Twist', notes: 'Best of both', photo: '', available: true }
+    ],
+    sundaes: [
+      { name: 'Train Wreck Sundae', description: 'House specialty', price: '8.99', photo: '', available: true }
+    ],
+    grille: [
+      { category: 'Burgers', name: 'Cheeseburger', description: 'Classic grilled burger with cheese', price: '8.99', photo: '', featured: false, available: true }
+    ],
+    hours: [
+      { day: 'Monday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
+      { day: 'Tuesday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
+      { day: 'Wednesday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
+      { day: 'Thursday', open: '11:00 AM', close: '8:00 PM', status: 'Open' },
+      { day: 'Friday', open: '11:00 AM', close: '9:00 PM', status: 'Open' },
+      { day: 'Saturday', open: '11:00 AM', close: '9:00 PM', status: 'Open' },
+      { day: 'Sunday', open: '12:00 PM', close: '8:00 PM', status: 'Open' }
+    ]
+  };
 
-    function stripGvizWrapper(text) {
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      if (start === -1 || end === -1) throw new Error('Invalid GViz response');
-      return text.slice(start, end + 1);
-    }
+  function stripGvizWrapper(text) {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start === -1 || end === -1) throw new Error('Invalid GViz response');
+    return text.slice(start, end + 1);
+  }
 
-    function cellValue(cell) {
-      if (!cell) return '';
-      if (cell.f !== undefined && cell.f !== null && cell.f !== '') return String(cell.f).trim();
-      if (cell.v !== undefined && cell.v !== null) return String(cell.v).trim();
-      return '';
-    }
+  function cellValue(cell) {
+    if (!cell) return '';
+    if (cell.f !== undefined && cell.f !== null && cell.f !== '') return String(cell.f).trim();
+    if (cell.v !== undefined && cell.v !== null) return String(cell.v).trim();
+    return '';
+  }
 
-    async function fetchSheetByName(sheetName) {
-      const response = await fetch(GVIZ_ENDPOINT(sheetName), { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Failed to load ${sheetName}`);
+  async function fetchSheetByName(sheetName) {
+    const response = await fetch(GVIZ_ENDPOINT(sheetName), { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Failed to load ${sheetName}`);
 
-      const text = await response.text();
-      const json = JSON.parse(stripGvizWrapper(text));
-      const cols = json.table.cols.map((col, index) => (col.label || `Column ${index + 1}`).trim());
-      const rows = json.table.rows || [];
+    const text = await response.text();
+    const json = JSON.parse(stripGvizWrapper(text));
+    const cols = json.table.cols.map((col, index) => (col.label || `Column ${index + 1}`).trim());
+    const rows = json.table.rows || [];
 
-      return rows.map((row) => {
-        const obj = {};
-        cols.forEach((colName, index) => {
-          obj[colName] = cellValue(row.c[index]);
-        });
-        return obj;
+    return rows.map((row) => {
+      const obj = {};
+      cols.forEach((colName, index) => {
+        obj[colName] = cellValue(row.c[index]);
       });
-    }
+      return obj;
+    });
+  }
 
-    function normBool(value, defaultValue = true) {
-      if (value === undefined || value === null || value === '') return defaultValue;
-      const v = String(value).trim().toLowerCase();
-      return ['yes', 'y', 'true', '1', 'open', 'available'].includes(v);
-    }
+  function normBool(value, defaultValue = true) {
+    if (value === undefined || value === null || value === '') return defaultValue;
+    const v = String(value).trim().toLowerCase();
+    return ['yes', 'y', 'true', '1', 'open', 'available'].includes(v);
+  }
 
-    function getValue(row, keys, fallback = '') {
-      for (const key of keys) {
-        if (row[key] !== undefined && row[key] !== null && row[key] !== '') {
-          return String(row[key]).trim();
-        }
+  function getValue(row, keys, fallback = '') {
+    for (const key of keys) {
+      if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') {
+        return String(row[key]).trim();
       }
-      return fallback;
     }
+    return fallback;
+  }
 
-    function escapeHtml(value) {
-      return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function escapeAttribute(value) {
-      return escapeHtml(value);
-    }
-
-    function renderSimpleList(containerId, items, formatter, emptyMessage) {
-      const el = document.getElementById(containerId);
-      if (!items.length) {
-        el.innerHTML = `<div class="empty-note">${emptyMessage}</div>`;
-        return;
+  function firstNonEmpty(row, keys = []) {
+    for (const key of keys) {
+      if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') {
+        return String(row[key]).trim();
       }
-      el.innerHTML = items.map(formatter).join('');
     }
+    return '';
+  }
 
-    function setStatus(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = `<span class="dot"></span>${text}`;
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function escapeAttribute(value) {
+    return escapeHtml(value);
+  }
+
+  function renderSimpleList(containerId, items, formatter, emptyMessage) {
+    const el = document.getElementById(containerId);
+    if (!items.length) {
+      el.innerHTML = `<div class="empty-note">${emptyMessage}</div>`;
+      return;
     }
+    el.innerHTML = items.map(formatter).join('');
+  }
 
-    function normalizeHard(rows) {
-      return rows
-        .map((row) => ({
-          name: getValue(row, ['Flavor Name', 'Flavor', 'Name']),
-          notes: getValue(row, ['Notes', 'Note', 'Description']),
-          photo: getValue(row, ['Photo URL', 'Photo', 'Image URL', 'Image']),
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
-        }))
-        .filter((item) => item.name && item.available);
-    }
+  function setStatus(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<span class="dot"></span>${text}`;
+  }
 
-    function normalizeSoft(rows) {
-      return rows
-        .map((row) => ({
-          name: getValue(row, ['Flavor Name', 'Flavor', 'Name', 'Soft Serve Flavor', 'Item Name', 'Item']),
-          notes: getValue(row, ['Notes', 'Twist Option', 'Description', 'Details']),
-          photo: getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image']),
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock', 'Status'], 'Yes'))
-        }))
-        .filter((item) => item.name && item.available);
-    }
+  function normalizeHard(rows) {
+    return rows
+      .map((row) => {
+        const name = firstNonEmpty(row, [
+          'Flavor Name',
+          'Flavor',
+          'Name',
+          'Item Name',
+          'Item',
+          'Column 1'
+        ]);
 
-    function normalizeSundaes(rows) {
-      return rows
-        .map((row) => ({
-          name: getValue(row, ['Name', 'Sundae Name', 'Item Name']),
-          description: getValue(row, ['Description', 'Notes', 'Details']),
-          price: getValue(row, ['Price', 'Cost']),
-          photo: getValue(row, ['Photo URL', 'Photo', 'Image URL', 'Image']),
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
-        }))
-        .filter((item) => item.name && item.available);
-    }
+        const availableRaw = firstNonEmpty(row, [
+          'Available',
+          'Available Today',
+          'In Stock',
+          'Status',
+          'Column 2'
+        ]) || 'Yes';
 
-    function normalizeGrille(rows) {
-      return rows
-        .map((row) => ({
-          category: getValue(row, ['Category', 'Section', 'Group'], 'Fresh Off The Grille'),
-          name: getValue(row, ['Item Name', 'Name', 'Menu Item']),
-          description: getValue(row, ['Description', 'Notes', 'Details']),
-          price: getValue(row, ['Price', 'Cost']),
-          photo: getValue(row, ['Photo URL', 'Photo', 'Image URL', 'Image']),
-          featured: normBool(getValue(row, ['Featured', 'Highlight'], 'No'), false),
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
-        }))
-        .filter((item) => item.name && item.available);
-    }
+        const notes = firstNonEmpty(row, [
+          'Notes',
+          'Note',
+          'Description',
+          'Details',
+          'Column 3'
+        ]);
 
-    function normalizeHours(rows) {
-      return rows
-        .map((row) => ({
-          day: getValue(row, ['Day', 'Weekday']),
-          open: getValue(row, ['Open', 'Open Time']),
-          close: getValue(row, ['Close', 'Close Time']),
-          status: getValue(row, ['Status'], 'Open')
-        }))
-        .filter((item) => item.day);
-    }
+        const photo = firstNonEmpty(row, [
+          'Photo Url',
+          'Photo URL',
+          'Photo',
+          'Image URL',
+          'Image',
+          'Column 4'
+        ]);
 
-    function renderHard(items, live) {
-      renderSimpleList(
-        'hardScoopList',
-        items,
-        (item) => item.photo ? `
-          <div class="menu-photo-card">
-            <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
-            <div class="menu-photo-text">
-              <div class="flavor-name">${escapeHtml(item.name)}</div>
-              <div class="flavor-meta">${item.notes ? escapeHtml(item.notes) : 'Available today'}</div>
-            </div>
-          </div>
-        ` : `
-          <div class="flavor-item">
+        return {
+          name,
+          notes,
+          photo,
+          available: normBool(availableRaw, true)
+        };
+      })
+      .filter((item) => item.name && item.available);
+  }
+
+  function normalizeSoft(rows) {
+    return rows
+      .map((row) => {
+        const name = firstNonEmpty(row, [
+          'Flavor Name',
+          'Flavor',
+          'Name',
+          'Soft Serve Flavor',
+          'Item Name',
+          'Item',
+          'Column 1'
+        ]);
+
+        const availableRaw = firstNonEmpty(row, [
+          'Available',
+          'Available Today',
+          'In Stock',
+          'Status',
+          'Column 2'
+        ]) || 'Yes';
+
+        const notes = firstNonEmpty(row, [
+          'Notes',
+          'Twist Option',
+          'Description',
+          'Details',
+          'Column 3'
+        ]);
+
+        const photo = firstNonEmpty(row, [
+          'Photo Url',
+          'Photo URL',
+          'Photo',
+          'Image URL',
+          'Image',
+          'Column 4'
+        ]);
+
+        return {
+          name,
+          notes,
+          photo,
+          available: normBool(availableRaw, true)
+        };
+      })
+      .filter((item) => item.name && item.available);
+  }
+
+  function normalizeSundaes(rows) {
+    return rows
+      .map((row) => ({
+        name: getValue(row, ['Name', 'Sundae Name', 'Item Name']),
+        description: getValue(row, ['Description', 'Notes', 'Details']),
+        price: getValue(row, ['Price', 'Cost']),
+        photo: getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image']),
+        available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
+      }))
+      .filter((item) => item.name && item.available);
+  }
+
+  function normalizeGrille(rows) {
+    return rows
+      .map((row) => ({
+        category: getValue(row, ['Category', 'Section', 'Group'], 'Fresh Off The Grille'),
+        name: getValue(row, ['Item Name', 'Name', 'Menu Item']),
+        description: getValue(row, ['Description', 'Notes', 'Details']),
+        price: getValue(row, ['Price', 'Cost']),
+        photo: getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image']),
+        featured: normBool(getValue(row, ['Featured', 'Highlight'], 'No'), false),
+        available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
+      }))
+      .filter((item) => item.name && item.available);
+  }
+
+  function normalizeHours(rows) {
+    return rows
+      .map((row) => ({
+        day: getValue(row, ['Day', 'Weekday']),
+        open: getValue(row, ['Open', 'Open Time']),
+        close: getValue(row, ['Close', 'Close Time']),
+        status: getValue(row, ['Status'], 'Open')
+      }))
+      .filter((item) => item.day);
+  }
+
+  function renderHard(items) {
+    renderSimpleList(
+      'hardScoopList',
+      items,
+      (item) => item.photo ? `
+        <div class="menu-photo-card">
+          <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
+          <div class="menu-photo-text">
             <div class="flavor-name">${escapeHtml(item.name)}</div>
             <div class="flavor-meta">${item.notes ? escapeHtml(item.notes) : 'Available today'}</div>
           </div>
-        `,
-        'No hard scoop flavors posted yet.'
-      );
-      setStatus('hardStatus', 'Most up to date flavors as of today');
-    }
+        </div>
+      ` : `
+        <div class="flavor-item">
+          <div class="flavor-name">${escapeHtml(item.name)}</div>
+          <div class="flavor-meta">${item.notes ? escapeHtml(item.notes) : 'Available today'}</div>
+        </div>
+      `,
+      'No hard scoop flavors posted yet.'
+    );
+    setStatus('hardStatus', 'Most up to date flavors as of today');
+  }
 
-    function renderSoft(items, live) {
-      renderSimpleList(
-        'softServeList',
-        items,
-        (item) => item.photo ? `
-          <div class="menu-photo-card">
-            <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
-            <div class="menu-photo-text">
-              <div class="soft-name">${escapeHtml(item.name)}</div>
-              <div class="soft-meta">${item.notes ? escapeHtml(item.notes) : 'Currently available'}</div>
-            </div>
-          </div>
-        ` : `
-          <div class="soft-item">
+  function renderSoft(items) {
+    renderSimpleList(
+      'softServeList',
+      items,
+      (item) => item.photo ? `
+        <div class="menu-photo-card">
+          <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
+          <div class="menu-photo-text">
             <div class="soft-name">${escapeHtml(item.name)}</div>
             <div class="soft-meta">${item.notes ? escapeHtml(item.notes) : 'Currently available'}</div>
           </div>
-        `,
-        'No soft serve flavors posted yet.'
-      );
-      setStatus('softStatus', 'Most up to date flavors as of today');
-    }
+        </div>
+      ` : `
+        <div class="soft-item">
+          <div class="soft-name">${escapeHtml(item.name)}</div>
+          <div class="soft-meta">${item.notes ? escapeHtml(item.notes) : 'Currently available'}</div>
+        </div>
+      `,
+      'No soft serve flavors posted yet.'
+    );
+    setStatus('softStatus', 'Most up to date flavors as of today');
+  }
 
-    function renderSundaes(items, live) {
-      renderSimpleList(
-        'sundaeList',
-        items,
-        (item) => item.photo ? `
-          <div class="menu-photo-card">
-            <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
-            <div class="menu-photo-text">
-              <div class="sundae-name">${escapeHtml(item.name)}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
-              <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'House specialty'}</div>
-            </div>
-          </div>
-        ` : `
-          <div class="sundae-item">
+  function renderSundaes(items) {
+    renderSimpleList(
+      'sundaeList',
+      items,
+      (item) => item.photo ? `
+        <div class="menu-photo-card">
+          <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
+          <div class="menu-photo-text">
             <div class="sundae-name">${escapeHtml(item.name)}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
             <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'House specialty'}</div>
           </div>
-        `,
-        'No sundaes posted yet.'
-      );
-      setStatus('sundaeStatus', 'Most up to date flavors as of today');
+        </div>
+      ` : `
+        <div class="sundae-item">
+          <div class="sundae-name">${escapeHtml(item.name)}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
+          <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'House specialty'}</div>
+        </div>
+      `,
+      'No sundaes posted yet.'
+    );
+    setStatus('sundaeStatus', 'Most up to date flavors as of today');
+  }
+
+  function renderGrille(items) {
+    const container = document.getElementById('grilleMenuList');
+
+    if (!items.length) {
+      container.innerHTML = '<div class="empty-note">No grille items posted yet.</div>';
+      setStatus('grilleStatus', 'Most up to date favorites as of today');
+      return;
     }
 
-    function renderGrille(items, live) {
-      const container = document.getElementById('grilleMenuList');
+    const grouped = items.reduce((acc, item) => {
+      const key = item.category || 'Fresh Off The Grille';
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(item);
+      return acc;
+    }, {});
 
-      if (!items.length) {
-        container.innerHTML = '<div class="empty-note">No grille items posted yet.</div>';
-        setStatus('grilleStatus', 'Most up to date favorites as of today');
-        return;
-      }
-
-      const grouped = items.reduce((acc, item) => {
-        const key = item.category || 'Fresh Off The Grille';
-        if (!acc[key]) acc[key] = [];
-        acc[key].push(item);
-        return acc;
-      }, {});
-
-      container.innerHTML = Object.entries(grouped).map(([category, groupItems]) => `
-        <div class="sundae-item" style="padding: 1rem;">
-          <div class="card-kicker" style="margin-bottom: 0.8rem;">${escapeHtml(category)}</div>
-          <div style="display:grid; gap:0.7rem;">
-            ${groupItems.map((item) => item.photo ? `
-              <div class="menu-photo-card">
-                <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
-                <div class="menu-photo-text">
-                  <div class="sundae-name">${escapeHtml(item.name)}${item.featured ? ' ★' : ''}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
-                  <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'Grille favorite'}</div>
-                </div>
-              </div>
-            ` : `
-              <div style="background: var(--ivory); border: 1px solid var(--line); border-radius: 14px; padding: 0.8rem 0.85rem;">
+    container.innerHTML = Object.entries(grouped).map(([category, groupItems]) => `
+      <div class="sundae-item" style="padding: 1rem;">
+        <div class="card-kicker" style="margin-bottom: 0.8rem;">${escapeHtml(category)}</div>
+        <div style="display:grid; gap:0.7rem;">
+          ${groupItems.map((item) => item.photo ? `
+            <div class="menu-photo-card">
+              <img class="menu-photo" src="${escapeAttribute(item.photo)}" alt="${escapeAttribute(item.name)}" loading="lazy" />
+              <div class="menu-photo-text">
                 <div class="sundae-name">${escapeHtml(item.name)}${item.featured ? ' ★' : ''}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
                 <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'Grille favorite'}</div>
               </div>
-            `).join('')}
-          </div>
+            </div>
+          ` : `
+            <div style="background: var(--ivory); border: 1px solid var(--line); border-radius: 14px; padding: 0.8rem 0.85rem;">
+              <div class="sundae-name">${escapeHtml(item.name)}${item.featured ? ' ★' : ''}${item.price ? ` • ${escapeHtml(item.price)}` : ''}</div>
+              <div class="sundae-meta">${item.description ? escapeHtml(item.description) : 'Grille favorite'}</div>
+            </div>
+          `).join('')}
         </div>
-      `).join('');
+      </div>
+    `).join('');
 
-      setStatus('grilleStatus', 'Most up to date favorites as of today');
+    setStatus('grilleStatus', 'Most up to date favorites as of today');
+  }
+
+  function renderHours(items) {
+    renderSimpleList(
+      'hoursList',
+      items,
+      (item) => `
+        <div class="hours-item">
+          <span>${escapeHtml(item.day)}</span>
+          <strong>${escapeHtml(item.status).toLowerCase() === 'closed' ? 'Closed' : `${escapeHtml(item.open)} – ${escapeHtml(item.close)}`}</strong>
+        </div>
+      `,
+      'No hours posted yet.'
+    );
+    setStatus('hoursStatus', 'Most up to date hours as of today');
+  }
+
+  async function fetchTabSafe(sheetName) {
+    try {
+      return await fetchSheetByName(sheetName);
+    } catch (error) {
+      console.error(`Sheet load failed for ${sheetName}:`, error);
+      return null;
     }
+  }
 
-    function renderHours(items, live) {
-      renderSimpleList(
-        'hoursList',
-        items,
-        (item) => `
-          <div class="hours-item">
-            <span>${escapeHtml(item.day)}</span>
-            <strong>${escapeHtml(item.status).toLowerCase() === 'closed' ? 'Closed' : `${escapeHtml(item.open)} – ${escapeHtml(item.close)}`}</strong>
-          </div>
-        `,
-        'No hours posted yet.'
-      );
-      setStatus('hoursStatus', 'Most up to date hours as of today');
-    }
+  async function loadAllData() {
+    const hardRows = await fetchTabSafe(TAB_NAMES.hard);
+    const softRows = await fetchTabSafe(TAB_NAMES.soft);
+    const sundaeRows = await fetchTabSafe(TAB_NAMES.sundaes);
+    const grilleRows = await fetchTabSafe(TAB_NAMES.grille);
+    const hourRows = await fetchTabSafe(TAB_NAMES.hours);
 
-    async function fetchTabSafe(sheetName) {
-      try {
-        return await fetchSheetByName(sheetName);
-      } catch (error) {
-        console.error(`Sheet load failed for ${sheetName}:`, error);
-        return null;
-      }
-    }
+    renderHard(hardRows ? normalizeHard(hardRows) : fallbackData.hard);
+    renderSoft(softRows ? normalizeSoft(softRows) : fallbackData.soft);
+    renderSundaes(sundaeRows ? normalizeSundaes(sundaeRows) : fallbackData.sundaes);
+    renderGrille(grilleRows ? normalizeGrille(grilleRows) : fallbackData.grille);
+    renderHours(hourRows ? normalizeHours(hourRows) : fallbackData.hours);
 
-    async function loadAllData() {
-      const hardRows = await fetchTabSafe(TAB_NAMES.hard);
-      const softRows = await fetchTabSafe(TAB_NAMES.soft);
-      const sundaeRows = await fetchTabSafe(TAB_NAMES.sundaes);
-      const grilleRows = await fetchTabSafe(TAB_NAMES.grille);
-      const hourRows = await fetchTabSafe(TAB_NAMES.hours);
+    console.log('HARD rows:', hardRows);
+    console.log('SOFT rows:', softRows);
+  }
 
-      renderHard(hardRows ? normalizeHard(hardRows) : fallbackData.hard, !!hardRows);
-      renderSoft(softRows ? normalizeSoft(softRows) : fallbackData.soft, !!softRows);
-      renderSundaes(sundaeRows ? normalizeSundaes(sundaeRows) : fallbackData.sundaes, !!sundaeRows);
-      renderGrille(grilleRows ? normalizeGrille(grilleRows) : fallbackData.grille, !!grilleRows);
-      renderHours(hourRows ? normalizeHours(hourRows) : fallbackData.hours, !!hourRows);
-    }
-
-    loadAllData();
-  </script>
+  loadAllData();
+</script>
 </body>
 </html>
