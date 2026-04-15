@@ -596,45 +596,21 @@
           </div>
           <div class="hero-photo" role="img" aria-label="Kristy's Whistle Stop storefront">
             <div class="hero-sign">
-              <small>Now powered by Google Sheets</small>
-              Update flavors, sundaes, grille items, and hours from one simple spreadsheet.
+              <small>Classic summer stop</small>
+              A hometown favorite for cones, sundaes, soft serve, and hot-off-the-grille comfort food.
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <h2>Website control panel flow</h2>
-          <p>
-            One Google Sheet drives the hard scoop list, soft serve, sundaes, grille menu, and shop hours.
-            Update the sheet from a phone and the page updates itself.
-          </p>
-        </div>
-        <div class="menu-links">
-          <div class="menu-link">
-            <strong>Hard Scoop tab</strong>
-            Add or remove hand-dipped flavors and mark what is available today.
-          </div>
-          <div class="menu-link">
-            <strong>Soft Serve tab</strong>
-            Show current soft serve flavors, twists, and seasonal options.
-          </div>
-          <div class="menu-link">
-            <strong>Sundaes, grille + hours</strong>
-            Feature specialties, hot food, and keep the schedule accurate in one place.
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <section id="hard-scoop">
       <div class="container">
         <div class="section-head">
           <h2>Hard Scoop Flavors</h2>
-          <p>Loaded from the Google Sheet tab for hand-dipped flavors.</p>
+          <p>Browse current hand-dipped flavors and check back often for rotating favorites.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -646,14 +622,14 @@
               </div>
             </div>
             <div class="info-card">
-              <h3>Spreadsheet setup</h3>
+              <h3>Always worth a stop</h3>
               <p class="muted">
-                This version pulls directly from the published Google Sheet using the real sheet names, so you do not need to mess with tab gid values.
+                From longtime classics to rotating favorites, this flavor board is built to feel like the real window at the stand.
               </p>
               <p class="muted">
-                Suggested columns: <strong>Flavor Name</strong>, <strong>Available</strong>, <strong>Notes</strong>, and optionally <strong>Photo URL</strong> for image cards.
+                Whether you're stopping in for a cone, a sundae, or dinner too, there is always something good waiting at the window.
               </p>
-              <div class="status" id="hardStatus"><span class="dot"></span>Ready to load hard scoop flavors</div>
+              <div class="status" id="hardStatus"><span class="dot"></span>Current hard scoop favorites</div>
             </div>
           </div>
         </div>
@@ -664,7 +640,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Soft Serve</h2>
-          <p>Current soft serve flavors and twist options from the spreadsheet.</p>
+          <p>Classic soft serve favorites, twists, and seasonal options.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -672,7 +648,7 @@
             <div id="softServeList" class="soft-list" aria-live="polite">
               <div class="empty-note">Loading soft serve flavors…</div>
             </div>
-            <div class="status" id="softStatus"><span class="dot"></span>Ready to load soft serve</div>
+            <div class="status" id="softStatus"><span class="dot"></span>Soft serve favorites</div>
           </div>
         </div>
       </div>
@@ -682,7 +658,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Signature Sundaes</h2>
-          <p>Feature specialty sundaes, custom creations, and seasonal desserts from the spreadsheet.</p>
+          <p>Specialty sundaes, custom creations, and sweet treats worth the stop.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -690,7 +666,7 @@
             <div id="sundaeList" class="sundae-list" aria-live="polite">
               <div class="empty-note">Loading sundae menu…</div>
             </div>
-            <div class="status" id="sundaeStatus"><span class="dot"></span>Ready to load sundae menu</div>
+            <div class="status" id="sundaeStatus"><span class="dot"></span>Signature sundae lineup</div>
           </div>
         </div>
       </div>
@@ -700,7 +676,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Fresh Off The Grille</h2>
-          <p>Hot food and grille favorites load from the spreadsheet too, with support for categories like Burgers, Hot Dogs, Sandwiches, Sides, and Roadside Favorites.</p>
+          <p>Hot food and roadside favorites including burgers, dogs, sandwiches, fries, baskets, and more.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -708,7 +684,7 @@
             <div id="grilleMenuList" class="sundae-list" aria-live="polite">
               <div class="empty-note">Loading grille menu…</div>
             </div>
-            <div class="status" id="grilleStatus"><span class="dot"></span>Ready to load grille menu</div>
+            <div class="status" id="grilleStatus"><span class="dot"></span>Fresh off the grille</div>
           </div>
         </div>
       </div>
@@ -718,7 +694,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Hours</h2>
-          <p>Shop hours pull from the spreadsheet so schedule changes only need one quick edit.</p>
+          <p>Check today’s hours before you swing by.</p>
         </div>
         <div class="roadside-panel">
           <div class="panel-stripe"></div>
@@ -728,7 +704,7 @@
               <div id="hoursList" class="hours-list" aria-live="polite">
                 <div class="empty-note">Loading shop hours…</div>
               </div>
-              <div class="status" id="hoursStatus"><span class="dot"></span>Ready to load hours</div>
+              <div class="status" id="hoursStatus"><span class="dot"></span>Today's schedule</div>
 
               <div class="info-card details-card" style="margin-top: 1rem;">
                 <h3>Storefront details</h3>
@@ -742,7 +718,7 @@
               <div class="hours-photo-card">
                 <img src="https://res.cloudinary.com/dkzuagusr/image/upload/v1776271274/239169061_285262436740949_1011575798584043334_n_xmwhlk.jpg" alt="Kristy's Whistle Stop storefront with classic cars" loading="lazy" />
                 <div class="hours-photo-caption">
-                  A little extra roadside charm next to the hours section, pulled from the real storefront vibe.
+                  A little roadside nostalgia from the real storefront.
                 </div>
               </div>
             </div>
@@ -751,28 +727,7 @@
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <h2>Why the new vibe works</h2>
-          <p>The styling pulls from the real shop photos: roadside sign energy, cherry red, mustard yellow, cream, teal, and classic drive-in nostalgia.</p>
-        </div>
-        <div class="feature-grid">
-          <article class="card" style="padding:1rem;">
-            <h3>Looks like the real place</h3>
-            <p>Less generic cafe template, more local roadside stand with old-school summer-night personality.</p>
-          </article>
-          <article class="card" style="padding:1rem;">
-            <h3>Built for quick mobile checks</h3>
-            <p>Customers can jump straight to flavors, sundaes, grille food, and hours without hunting around.</p>
-          </article>
-          <article class="card" style="padding:1rem;">
-            <h3>Easy for the owner to run</h3>
-            <p>One published sheet controls the important stuff, which keeps daily updates simple and low stress.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    
   </main>
 
   <footer class="footer">
