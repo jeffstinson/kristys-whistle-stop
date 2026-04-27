@@ -1119,18 +1119,18 @@ With its spot near the historic rail yards and its longtime hometown following, 
     }
 
     function normalizeSundaes(rows) {
-      return rows
-        .map((row) => ({
-          name: getValue(row, ['Name', 'Sundae Name', 'Item Name']),
-          description: getValue(row, ['Description', 'Notes', 'Details']),
-          price: getValue(row, ['Price', 'Cost']),
-          photo: isValidImageUrl(getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image']))
-            ? getValue(row, ['Photo Url', 'Photo URL', 'Photo', 'Image URL', 'Image'])
-            : '',
-          available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
-        }))
-        .filter((item) => item.name && isRealValue(item.name) && item.available);
-    }
+  return rows
+    .map((row) => ({
+      name: getValue(row, ['Sundae Name', 'Sundae', 'Name', 'Item Name']),
+      description: getValue(row, ['Description of Sundae', 'Description of Sunday', 'Description', 'Notes', 'Details']),
+      price: getValue(row, ['Price', 'Cost']),
+      photo: isValidImageUrl(getValue(row, ['PHOTO URL', 'Photo URL', 'Photo Url', 'Photo', 'Image URL', 'Image']))
+        ? getValue(row, ['PHOTO URL', 'Photo URL', 'Photo Url', 'Photo', 'Image URL', 'Image'])
+        : '',
+      available: normBool(getValue(row, ['Available', 'Available Today', 'In Stock'], 'Yes'))
+    }))
+    .filter((item) => item.name && isRealValue(item.name) && item.available);
+}
 
     function normalizeGrille(rows) {
       return rows
